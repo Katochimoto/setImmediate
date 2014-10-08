@@ -1,4 +1,6 @@
-(function (global, undefined) {
+/* jshint -W067 */
+/* jshint unused: false */
+(function(global, undefined) {
     "use strict";
 
     if (global.setImmediate) {
@@ -57,7 +59,7 @@
     function installNextTickImplementation() {
         setImmediate = function() {
             var handle = addFromSetImmediateArguments(arguments);
-            process.nextTick(partiallyApplied(runIfPresent, handle));
+            global.process.nextTick(partiallyApplied(runIfPresent, handle));
             return handle;
         };
     }
@@ -125,7 +127,7 @@
             // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
             // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
             var script = doc.createElement("script");
-            script.onreadystatechange = function () {
+            script.onreadystatechange = function() {
                 runIfPresent(handle);
                 script.onreadystatechange = null;
                 html.removeChild(script);
@@ -172,4 +174,7 @@
 
     attachTo.setImmediate = setImmediate;
     attachTo.clearImmediate = clearImmediate;
-}(new Function("return this")()));
+
+}(function() {
+    return this || (1, eval)('this');
+}()));
