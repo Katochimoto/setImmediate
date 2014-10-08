@@ -60,107 +60,11 @@
         delete Timer.tasks[ handleId ];
     };
 
-    /* polifill/messageChannel.js begin */
-/* global global, Timer */
-
-Timer.polifill.messageChannel = function() {
-    var channel = new global.MessageChannel();
-
-    channel.port1.onmessage = function(event) {
-        Timer.run(Number(event.data));
-    };
-
-    return function() {
-        var handleId = Timer.create(arguments);
-        channel.port2.postMessage(handleId);
-        return handleId;
-    };
-};
-
-/* polifill/messageChannel.js end */
-
-    /* polifill/nextTick.js begin */
-/* global global, Timer */
-
-Timer.polifill.nextTick = function() {
-    return function() {
-        var handleId = Timer.create(arguments);
-        global.process.nextTick( Timer.wrap( Timer.run, handleId ) );
-        return handleId;
-    };
-};
-
-/* polifill/nextTick.js end */
-
-    /* polifill/postMessage.js begin */
-/* global global, Timer */
-
-Timer.polifill.postMessage = function() {
-    var messagePrefix = 'setImmediate$' + Math.random() + '$';
-
-    var onGlobalMessage = function(event) {
-        if (event.source === global &&
-            typeof(event.data) === 'string' &&
-            event.data.indexOf(messagePrefix) === 0) {
-
-            Timer.run(Number(event.data.slice(messagePrefix.length)));
-        }
-    };
-
-    if (global.addEventListener) {
-        global.addEventListener('message', onGlobalMessage, false);
-
-    } else {
-        global.attachEvent('onmessage', onGlobalMessage);
-    }
-
-    return function() {
-        var handleId = Timer.create(arguments);
-        global.postMessage(messagePrefix + handleId, '*');
-        return handleId;
-    };
-};
-
-/* polifill/postMessage.js end */
-
-    /* polifill/readyStateChange.js begin */
-/* global Timer, doc */
-
-Timer.polifill.readyStateChange = function() {
-    var html = doc.documentElement;
-
-    return function() {
-        var handleId = Timer.create(arguments);
-        var script = doc.createElement('script');
-
-        script.onreadystatechange = function() {
-            Timer.run(handleId);
-            script.onreadystatechange = null;
-            html.removeChild(script);
-            script = null;
-        };
-
-        html.appendChild(script);
-
-        return handleId;
-    };
-};
-
-/* polifill/readyStateChange.js end */
-
-    /* polifill/setTimeout.js begin */
-/* global global, Timer */
-
-Timer.polifill.setTimeout = function() {
-    return function() {
-        var handleId = Timer.create(arguments);
-        global.setTimeout( Timer.wrap( Timer.run, handleId ), 0 );
-        return handleId;
-    };
-};
-
-/* polifill/setTimeout.js end */
-
+    /*! borschik:include:polifill/messageChannel.js */
+    /*! borschik:include:polifill/nextTick.js */
+    /*! borschik:include:polifill/postMessage.js */
+    /*! borschik:include:polifill/readyStateChange.js */
+    /*! borschik:include:polifill/setTimeout.js */
 
 
 

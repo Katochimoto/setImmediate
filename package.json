@@ -1,28 +1,67 @@
 {
-    "name": "setimmediate",
+    "name": "setimmediate2",
+
     "description": "A shim for the setImmediate efficient script yielding API",
-    "version": "1.0.2",
-    "author": "YuzuJS",
-    "contributors": [
-        "Domenic Denicola <domenic@domenicdenicola.com> (http://domenic.me)",
-        "Donavon West <github@donavon.com> (http://donavon.com)",
-        "Yaffle"
+
+    "version": "1.1.3",
+
+    "keywords": [
+        "setImmediate"
     ],
+
+    "author": "YuzuJS",
+
+    "contributors": [
+        {
+            "name": "Rikishi",
+            "email": "bufpost@yandex.ru",
+            "url": "https://github.com/Katochimoto"
+        }
+    ],
+
     "license": "MIT",
-    "repository": "git://github.com/YuzuJS/setImmediate.git",
-    "bugs": "https://github.com/YuzuJS/setImmediate/issues",
-    "main": "setImmediate.js",
-    "scripts": {
-        "lint": "jshint setImmediate.js",
-        "test": "mocha test/tests.js",
-        "test-browser": "opener http://localhost:9008/__zuul && zuul test/tests.js --ui mocha-bdd --local 9008",
-        "test-browser-only": "opener http://localhost:9007/test/browserOnly/index.html && http-server . -p 9007"
+
+    "homepage": "https://github.com/Katochimoto/setImmediate/",
+
+    "bugs": {
+        "url": "https://github.com/Katochimoto/setImmediate/issues",
+        "email": "bufpost@yandex.ru"
     },
+
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:Katochimoto/setImmediate.git"
+    },
+
     "devDependencies": {
-        "jshint": "^2.5.0",
-        "mocha": "~1.18.2",
-        "http-server": "~0.6.1",
-        "opener": "^1.3",
-        "zuul": "^1.6.4"
+        "borschik": "1.3.0",
+
+        "jshint": "2.5.5",
+        "jscs": "1.6.2",
+
+        "mocha": "1.21.4",
+        "expect.js": "0.3.1",
+        "sinon": "1.10.3",
+
+        "karma": "~0.12.x",
+        "karma-mocha": "~0.1.x",
+        "karma-sinon-expect": "~0.1.x",
+        "karma-borschik-preprocessor": "~0.1.x",
+        "karma-phantomjs-launcher": "~0.1.x",
+        "karma-chrome-launcher": "~0.1.x"
+    },
+
+    "main": "setImmediate.js",
+
+    "scripts": {
+        "test": "make test"
+    },
+
+    "engines": {
+        "node": ">=0.6.0"
+    },
+
+    "directories": {
+        "test": "test"
     }
 }

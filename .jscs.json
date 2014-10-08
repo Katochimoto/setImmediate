@@ -1,0 +1,60 @@
+{
+    "requireCurlyBraces": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do"
+    ],
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "return"
+    ],
+    "disallowSpaceAfterKeywords": [
+        "catch"
+    ],
+    "requireSpacesInFunctionExpression": { "beforeOpeningCurlyBrace": true },
+    "disallowSpacesInFunctionExpression": { "beforeOpeningRoundBrace": true },
+
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+
+    "disallowMultipleVarDecl": true,
+    "requireBlocksOnNewline": true,
+    "disallowEmptyBlocks": true,
+
+    "requireSpacesInConditionalExpression": {
+        "afterTest": true,
+        "beforeConsequent": true,
+        "afterConsequent": true,
+        "beforeAlternate": true
+    },
+    "requireSpaceAfterBinaryOperators": [ "+", "-", "/", "*" ],
+    "requireSpaceBeforeBinaryOperators": [ "+", "-", "/", "*" ],
+
+    "disallowImplicitTypeConversion": ["numeric", "binary", "string"],
+
+    "disallowKeywords": ["with"],
+    "disallowKeywordsOnNewLine": ["else", "catch"],
+    "requireLineFeedAtFileEnd": true,
+    "validateJSDoc": {
+        "checkParamNames": true,
+        "requireParamTypes": true,
+        "checkRedundantParams": true
+    },
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowYodaConditions": true,
+    "excludeFiles": [
+        "node_modules",
+        "test",
+        "setImmediate.js",
+        "setImmediate.min.js",
+        "karma.conf.js"
+    ]
+}
