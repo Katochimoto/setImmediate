@@ -68,110 +68,11 @@
         }
     };
 
-    /* implementation/messageChannel.js begin */
-/* global handleManager */
-
-handleManager.implementation.messageChannel = function() {
-    var channel = new MessageChannel();
-
-    channel.port1.onmessage = function(event) {
-        var handle = event.data;
-        handleManager.runIfPresent(handle);
-    };
-
-    return function() {
-        var handleId = handleManager.register(arguments);
-        channel.port2.postMessage(handleId);
-        return handleId;
-    };
-};
-
-/* implementation/messageChannel.js end */
-
-    /* implementation/nextTick.js begin */
-/* global global, handleManager */
-
-handleManager.implementation.nextTick = function() {
-    return function() {
-        var handleId = handleManager.register(arguments);
-        global.process.nextTick( handleManager.partiallyApplied( handleManager.runIfPresent, handleId ) );
-        return handleId;
-    };
-};
-
-/* implementation/nextTick.js end */
-
-    /* implementation/postMessage.js begin */
-/* global global, handleManager */
-
-handleManager.implementation.postMessage = function() {
-    // Installs an event handler on `global` for the `message` event: see
-    // * https://developer.mozilla.org/en/DOM/window.postMessage
-    // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
-    var messagePrefix = 'setImmediate$' + Math.random() + '$';
-    var onGlobalMessage = function(event) {
-        if (event.source === global &&
-            typeof(event.data) === 'string' &&
-            event.data.indexOf(messagePrefix) === 0) {
-
-            handleManager.runIfPresent(Number(event.data.slice(messagePrefix.length)));
-        }
-    };
-
-    if (global.addEventListener) {
-        global.addEventListener('message', onGlobalMessage, false);
-
-    } else {
-        global.attachEvent('onmessage', onGlobalMessage);
-    }
-
-    return function() {
-        var handleId = handleManager.register(arguments);
-        global.postMessage(messagePrefix + handleId, '*');
-        return handleId;
-    };
-};
-
-/* implementation/postMessage.js end */
-
-    /* implementation/readyStateChange.js begin */
-/* global handleManager, doc */
-
-handleManager.implementation.readyStateChange = function() {
-    var html = doc.documentElement;
-
-    return function() {
-        var handleId = handleManager.register(arguments);
-        // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-        // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-        var script = doc.createElement('script');
-        script.onreadystatechange = function() {
-            handleManager.runIfPresent(handleId);
-            script.onreadystatechange = null;
-            html.removeChild(script);
-            script = null;
-        };
-        html.appendChild(script);
-        return handleId;
-    };
-};
-
-/* implementation/readyStateChange.js end */
-
-    /* implementation/setTimeout.js begin */
-/* global handleManager */
-
-handleManager.implementation.setTimeout = function() {
-    return function() {
-        var handleId = handleManager.register(arguments);
-        setTimeout( handleManager.partiallyApplied( handleManager.runIfPresent, handleId ), 0 );
-        return handleId;
-    };
-};
-
-/* implementation/setTimeout.js end */
-
+    /*! borschik:include:implementation/messageChannel.js */
+    /*! borschik:include:implementation/nextTick.js */
+    /*! borschik:include:implementation/postMessage.js */
+    /*! borschik:include:implementation/readyStateChange.js */
+    /*! borschik:include:implementation/setTimeout.js */
 
 
     function canUsePostMessage() {
