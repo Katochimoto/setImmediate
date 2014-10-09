@@ -1,17 +1,14 @@
-/* global global, handleManager */
+/* global global, Timer */
 
-handleManager.implementation.postMessage = function() {
-    // Installs an event handler on `global` for the `message` event: see
-    // * https://developer.mozilla.org/en/DOM/window.postMessage
-    // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
+Timer.polifill.postMessage = function() {
     var messagePrefix = 'setImmediate$' + Math.random() + '$';
+
     var onGlobalMessage = function(event) {
         if (event.source === global &&
             typeof(event.data) === 'string' &&
             event.data.indexOf(messagePrefix) === 0) {
 
-            handleManager.runIfPresent(Number(event.data.slice(messagePrefix.length)));
+            Timer.run(Number(event.data.slice(messagePrefix.length)));
         }
     };
 
@@ -23,7 +20,7 @@ handleManager.implementation.postMessage = function() {
     }
 
     return function() {
-        var handleId = handleManager.register(arguments);
+        var handleId = Timer.create(arguments);
         global.postMessage(messagePrefix + handleId, '*');
         return handleId;
     };

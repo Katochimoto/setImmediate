@@ -10,112 +10,95 @@
     var doc = global.document;
     var slice = Array.prototype.slice;
     var toString = Object.prototype.toString;
+    var Timer = {};
 
-    var handleManager = {
-        implementation: {},
-        nextId: 1,
-        tasks: {},
-        currentlyRunningATask: false,
+    Timer.polifill = {};
+    Timer.nextId = 1;
+    Timer.tasks = {};
+    Timer.lock = false;
 
-        runIfPresent: function(handleId) {
-            // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
-            // So if we're currently running a task, we'll need to delay this invocation.
-            if (handleManager.currentlyRunningATask) {
-                // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-                // "too much recursion" error.
-                setTimeout( handleManager.partiallyApplied( handleManager.runIfPresent, handleId ), 0 );
+    Timer.run = function(handleId) {
+        if (Timer.lock) {
+            global.setTimeout( Timer.wrap( Timer.run, handleId ), 0 );
 
-            } else {
-                var task = handleManager.tasks[ handleId ];
+        } else {
+            var task = Timer.tasks[ handleId ];
 
-                if (task) {
-                    handleManager.currentlyRunningATask = true;
+            if (task) {
+                Timer.lock = true;
 
-                    try {
-                        task();
+                try {
+                    task();
 
-                    } finally {
-                        handleManager.unregister( handleId );
-                        handleManager.currentlyRunningATask = false;
-                    }
+                } finally {
+                    Timer.clear( handleId );
+                    Timer.lock = false;
                 }
             }
-        },
-
-        // This function accepts the same arguments as setImmediate, but
-        // returns a function that requires no arguments.
-        partiallyApplied: function(handler) {
-            var args = slice.call(arguments, 1);
-
-            return function() {
-                if (typeof(handler) === 'function') {
-                    handler.apply(undefined, args);
-
-                } else {
-                    /* jshint -W054 */
-                    (new Function(String(handler)))();
-                }
-            };
-        },
-
-        register: function(args) {
-            handleManager.tasks[ handleManager.nextId ] = handleManager.partiallyApplied.apply(undefined, args);
-            return handleManager.nextId++;
-        },
-
-        unregister: function(handleId) {
-            delete handleManager.tasks[ handleId ];
         }
     };
 
-    /* implementation/messageChannel.js begin */
-/* global handleManager */
+    Timer.wrap = function(handler) {
+        var args = slice.call(arguments, 1);
 
-handleManager.implementation.messageChannel = function() {
-    var channel = new MessageChannel();
+        return function() {
+            handler.apply(undefined, args);
+        };
+    };
+
+    Timer.create = function(args) {
+        Timer.tasks[ Timer.nextId ] = Timer.wrap.apply(undefined, args);
+        return Timer.nextId++;
+    };
+
+    Timer.clear = function(handleId) {
+        delete Timer.tasks[ handleId ];
+    };
+
+    /* polifill/messageChannel.js begin */
+/* global global, Timer */
+
+Timer.polifill.messageChannel = function() {
+    var channel = new global.MessageChannel();
 
     channel.port1.onmessage = function(event) {
-        var handle = event.data;
-        handleManager.runIfPresent(handle);
+        Timer.run(Number(event.data));
     };
 
     return function() {
-        var handleId = handleManager.register(arguments);
+        var handleId = Timer.create(arguments);
         channel.port2.postMessage(handleId);
         return handleId;
     };
 };
 
-/* implementation/messageChannel.js end */
+/* polifill/messageChannel.js end */
 
-    /* implementation/nextTick.js begin */
-/* global global, handleManager */
+    /* polifill/nextTick.js begin */
+/* global global, Timer */
 
-handleManager.implementation.nextTick = function() {
+Timer.polifill.nextTick = function() {
     return function() {
-        var handleId = handleManager.register(arguments);
-        global.process.nextTick( handleManager.partiallyApplied( handleManager.runIfPresent, handleId ) );
+        var handleId = Timer.create(arguments);
+        global.process.nextTick( Timer.wrap( Timer.run, handleId ) );
         return handleId;
     };
 };
 
-/* implementation/nextTick.js end */
+/* polifill/nextTick.js end */
 
-    /* implementation/postMessage.js begin */
-/* global global, handleManager */
+    /* polifill/postMessage.js begin */
+/* global global, Timer */
 
-handleManager.implementation.postMessage = function() {
-    // Installs an event handler on `global` for the `message` event: see
-    // * https://developer.mozilla.org/en/DOM/window.postMessage
-    // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
+Timer.polifill.postMessage = function() {
     var messagePrefix = 'setImmediate$' + Math.random() + '$';
+
     var onGlobalMessage = function(event) {
         if (event.source === global &&
             typeof(event.data) === 'string' &&
             event.data.indexOf(messagePrefix) === 0) {
 
-            handleManager.runIfPresent(Number(event.data.slice(messagePrefix.length)));
+            Timer.run(Number(event.data.slice(messagePrefix.length)));
         }
     };
 
@@ -127,99 +110,101 @@ handleManager.implementation.postMessage = function() {
     }
 
     return function() {
-        var handleId = handleManager.register(arguments);
+        var handleId = Timer.create(arguments);
         global.postMessage(messagePrefix + handleId, '*');
         return handleId;
     };
 };
 
-/* implementation/postMessage.js end */
+/* polifill/postMessage.js end */
 
-    /* implementation/readyStateChange.js begin */
-/* global handleManager, doc */
+    /* polifill/readyStateChange.js begin */
+/* global Timer, doc */
 
-handleManager.implementation.readyStateChange = function() {
+Timer.polifill.readyStateChange = function() {
     var html = doc.documentElement;
 
     return function() {
-        var handleId = handleManager.register(arguments);
-        // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-        // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+        var handleId = Timer.create(arguments);
         var script = doc.createElement('script');
+
         script.onreadystatechange = function() {
-            handleManager.runIfPresent(handleId);
+            Timer.run(handleId);
             script.onreadystatechange = null;
             html.removeChild(script);
             script = null;
         };
+
         html.appendChild(script);
+
         return handleId;
     };
 };
 
-/* implementation/readyStateChange.js end */
+/* polifill/readyStateChange.js end */
 
-    /* implementation/setTimeout.js begin */
-/* global handleManager */
+    /* polifill/setTimeout.js begin */
+/* global global, Timer */
 
-handleManager.implementation.setTimeout = function() {
+Timer.polifill.setTimeout = function() {
     return function() {
-        var handleId = handleManager.register(arguments);
-        setTimeout( handleManager.partiallyApplied( handleManager.runIfPresent, handleId ), 0 );
+        var handleId = Timer.create(arguments);
+        global.setTimeout( Timer.wrap( Timer.run, handleId ), 0 );
         return handleId;
     };
 };
 
-/* implementation/setTimeout.js end */
+/* polifill/setTimeout.js end */
+
 
 
 
     function canUsePostMessage() {
-        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
-        // where `global.postMessage` means something completely different and can't be used for this purpose.
         if (global.postMessage && !global.importScripts) {
-            var postMessageIsAsynchronous = true;
+            var asynch = true;
             var oldOnMessage = global.onmessage;
             global.onmessage = function() {
-                postMessageIsAsynchronous = false;
+                asynch = false;
             };
             global.postMessage('', '*');
             global.onmessage = oldOnMessage;
-            return postMessageIsAsynchronous;
+            return asynch;
         }
     }
 
 
-    var implementation;
+    var polifill;
 
     // Don't get fooled by e.g. browserify environments.
     // For Node.js before 0.9
     if (toString.call(global.process) === '[object process]') {
-        implementation = 'nextTick';
+        polifill = 'nextTick';
 
     // For non-IE10 modern browsers
     } else if (canUsePostMessage()) {
-        implementation = 'postMessage';
+        polifill = 'postMessage';
 
     // For web workers, where supported
     } else if (global.MessageChannel) {
-        implementation = 'messageChannel';
+        polifill = 'messageChannel';
 
     // For IE 6–8
     } else if (doc && ('onreadystatechange' in doc.createElement('script'))) {
-        implementation = 'readyStateChange';
+        polifill = 'readyStateChange';
 
     // For older browsers
     } else {
-        implementation = 'setTimeout';
+        polifill = 'setTimeout';
     }
 
     // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
     var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
     attachTo = (attachTo && attachTo.setTimeout ? attachTo : global);
 
-    attachTo.setImmediate = handleManager.implementation[ implementation ]();
-    attachTo.clearImmediate = handleManager.unregister;
+    attachTo.setImmediate = Timer.polifill[ polifill ]();
+    attachTo.setImmediate.usePolifill = polifill;
+
+    attachTo.clearImmediate = Timer.clear;
 
 }(function() {
     return this || (1, eval)('this');
