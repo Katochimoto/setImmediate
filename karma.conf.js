@@ -15,11 +15,7 @@ module.exports = function(config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'bower_components/vow/vow.min.js',
-            'bower_components/es5-shim/es5-shim.js',
-            'bower_components/react/react-with-addons.js',
-            'src/xtag.js',
-            'src/xblocks.js',
+            'src/setImmediate.js',
             'test/spec/**/*.js'
         ],
 
@@ -33,8 +29,7 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            '**/*.js': [ 'borschik' ],
-            '**/*.jsx': [ 'react-jsx' ]
+            '**/*.js': [ 'borschik' ]
         },
 
 
