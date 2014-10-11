@@ -3,7 +3,12 @@
 (function(global, undefined) {
     'use strict';
 
-    if (global.setImmediate) {
+    if (global.msSetImmediate || global.setImmediate) {
+        if (!global.setImmediate) {
+            global.setImmediate = global.msSetImmediate;
+            global.clearImmediate = global.msClearImmediate;
+        }
+
         return;
     }
 
@@ -107,8 +112,10 @@
 
     attachTo.setImmediate = Timer.polifill[ polifill ]();
     attachTo.setImmediate.usePolifill = polifill;
+    attachTo.msSetImmediate = attachTo.setImmediate;
 
     attachTo.clearImmediate = Timer.clear;
+    attachTo.msClearImmediate = Timer.clear;
 
 }(function() {
     return this || (1, eval)('this');
