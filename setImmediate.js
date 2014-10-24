@@ -180,9 +180,13 @@ Timer.polifill.setTimeout = function() {
 
     var polifill;
 
+    // @see http://codeforhire.com/2013/09/21/setimmediate-and-messagechannel-broken-on-internet-explorer-10/
+    if (global.navigator && /Trident/.test(global.navigator.userAgent)) {
+        polifill = 'setTimeout';
+
     // Don't get fooled by e.g. browserify environments.
     // For Node.js before 0.9
-    if (toString.call(global.process) === '[object process]') {
+    } else if (toString.call(global.process) === '[object process]') {
         polifill = 'nextTick';
 
     // For non-IE10 modern browsers
