@@ -1,9 +1,13 @@
 {
-    "name": "setimmediate2",
+    "name": "setImmediate2",
 
     "description": "A shim for the setImmediate efficient script yielding API",
 
-    "version": "1.1.1",
+    "version": "1.1.2",
+
+    "keywords": [
+        "setImmediate"
+    ],
 
     "author": "YuzuJS",
 
