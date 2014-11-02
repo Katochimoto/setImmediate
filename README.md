@@ -1,6 +1,26 @@
 # setImmediate.js
 **A YuzuJS production**
 
+[![Build Status][build]][build-link] [![NPM version][version]][version-link] [![Dependency Status][dependency]][dependency-link] [![devDependency Status][dev-dependency]][dev-dependency-link] [![Code Climate][climate]][climate-link]
+
+## Stats
+
+[![NPM](https://nodei.co/npm/setimmediate2.png?downloads=true&stars=true)](https://nodei.co/npm/setimmediate2/)
+[![NPM](https://nodei.co/npm-dl/setimmediate2.png)](https://nodei.co/npm/setimmediate2/)
+
+
+[build]: https://travis-ci.org/Katochimoto/setImmediate.png?branch=master
+[build-link]: https://travis-ci.org/Katochimoto/setImmediate
+[version]: https://badge.fury.io/js/setimmediate2.png
+[version-link]: http://badge.fury.io/js/setimmediate2
+[dependency]: https://david-dm.org/Katochimoto/setImmediate.png
+[dependency-link]: https://david-dm.org/Katochimoto/setImmediate
+[dev-dependency]: https://david-dm.org/Katochimoto/setImmediate/dev-status.png
+[dev-dependency-link]: https://david-dm.org/Katochimoto/setImmediate#info=devDependencies
+[climate]: https://codeclimate.com/github/Katochimoto/setImmediate.png
+[climate-link]: https://codeclimate.com/github/Katochimoto/setImmediate
+
+
 ## Introduction
 
 **setImmediate.js** is a highly cross-browser implementation of the `setImmediate` and `clearImmediate` APIs, [proposed][spec] by Microsoft to the Web Performance Working Group. `setImmediate` allows scripts to yield to the browser, executing a given operation asynchronously, in a manner that is typically more efficient and consumes less power than the usual `setTimeout(..., 0)` pattern.
