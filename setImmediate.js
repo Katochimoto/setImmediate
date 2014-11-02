@@ -3,7 +3,7 @@
 (function(global, undefined) {
     'use strict';
 
-    if (global.msSetImmediate || global.setImmediate) {
+    if (!notUseNative() && (global.msSetImmediate || global.setImmediate)) {
         if (!global.setImmediate) {
             global.setImmediate = global.msSetImmediate;
             global.clearImmediate = global.msClearImmediate;
@@ -177,11 +177,15 @@ Timer.polifill.setTimeout = function() {
         }
     }
 
+    function notUseNative() {
+        // @see http://codeforhire.com/2013/09/21/setimmediate-and-messagechannel-broken-on-internet-explorer-10/
+        return (global.navigator && /Trident/.test(global.navigator.userAgent));
+    }
+
 
     var polifill;
 
-    // @see http://codeforhire.com/2013/09/21/setimmediate-and-messagechannel-broken-on-internet-explorer-10/
-    if (global.navigator && /Trident/.test(global.navigator.userAgent)) {
+    if (notUseNative()) {
         polifill = 'setTimeout';
 
     // Don't get fooled by e.g. browserify environments.
