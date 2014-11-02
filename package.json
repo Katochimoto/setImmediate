@@ -44,11 +44,7 @@
         "karma-sinon-expect": "~0.1.x",
         "karma-borschik-preprocessor": "~0.1.x",
         "karma-phantomjs-launcher": "~0.1.x",
-        "karma-chrome-launcher": "~0.1.x",
-
-        "http-server": "~0.6.1",
-        "opener": "^1.3",
-        "zuul": "^1.6.4"
+        "karma-chrome-launcher": "~0.1.x"
     },
 
     "main": "setImmediate.js",
