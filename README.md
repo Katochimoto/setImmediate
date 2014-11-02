@@ -69,19 +69,22 @@ Unfortunately, `postMessage` has completely different semantics inside web worke
 For our last trick, we pull something out to make things fast in Internet Explorer versions 6 through 8: namely, creating a `<script>` element and firing our calls in its `onreadystatechange` event. This does execute in a future turn of the event loop, and is also faster than `setTimeout(…, 0)`, so hey, why not?
 
 ## Usage
+```
+bower install setimmediate2
+```
 
 In the browser, include it with a `<script>` tag; pretty simple.
 
 In Node.js, do
 
 ```
-npm install setimmediate
+npm install setimmediate2
 ```
 
 then
 
 ```js
-require("setimmediate");
+require("setimmediate2");
 ```
 
 somewhere early in your app; it attaches to the global.
