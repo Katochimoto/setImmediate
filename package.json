@@ -1,7 +1,7 @@
 {
     "name": "setimmediate2",
 
-    "description": "A shim for the setImmediate efficient script yielding API",
+    "description": "A shim for the setImmediate efficient script yielding API (fork from setimmediate)",
 
     "version": "1.1.4",
 
