@@ -15,3 +15,4 @@ Makefile
 bower.json
 webpack.config.js
 src
+samples
