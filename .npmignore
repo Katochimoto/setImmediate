@@ -16,3 +16,4 @@ bower.json
 webpack.config.js
 src
 samples
+karma.conf.js
