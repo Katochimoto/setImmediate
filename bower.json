@@ -14,8 +14,7 @@
         "src",
         "package.json",
         "karma.conf.js",
-        "webpack.config.js",
-        "dist"
+        "webpack.config.js"
     ],
     "homepage": "https://github.com/Katochimoto/setImmediate",
     "authors": [
