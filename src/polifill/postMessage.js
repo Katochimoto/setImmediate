@@ -1,10 +1,13 @@
-/* global global, Timer */
+'use strict';
 
-Timer.polifill.postMessage = function() {
+var context = require('../context');
+var Timer = require('../timer');
+
+exports.init = function() {
     var messagePrefix = 'setImmediate$' + Math.random() + '$';
 
     var onGlobalMessage = function(event) {
-        if (event.source === global &&
+        if (event.source === context &&
             typeof(event.data) === 'string' &&
             event.data.indexOf(messagePrefix) === 0) {
 
@@ -12,16 +15,35 @@ Timer.polifill.postMessage = function() {
         }
     };
 
-    if (global.addEventListener) {
-        global.addEventListener('message', onGlobalMessage, false);
+    if (context.addEventListener) {
+        context.addEventListener('message', onGlobalMessage, false);
 
     } else {
-        global.attachEvent('onmessage', onGlobalMessage);
+        context.attachEvent('onmessage', onGlobalMessage);
     }
 
-    return function() {
+    var polifill = function() {
         var handleId = Timer.create(arguments);
-        global.postMessage(messagePrefix + handleId, '*');
+        context.postMessage(messagePrefix + handleId, '*');
         return handleId;
     };
+    polifill.usePolifill = 'postMessage';
+    return polifill;
+};
+
+// For non-IE10 modern browsers
+exports.canUse = function() {
+    if (context.importScripts || !context.postMessage) {
+        return false;
+    }
+
+    var asynch = true;
+    var oldOnMessage = context.onmessage;
+    context.onmessage = function() {
+        asynch = false;
+    };
+
+    context.postMessage('', '*');
+    context.onmessage = oldOnMessage;
+    return asynch;
 };

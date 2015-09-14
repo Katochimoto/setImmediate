@@ -1,0 +1,160 @@
+*
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+}
+
+HTML
+{
+    height: 100%;
+}
+
+body
+{
+    font-family: 'Segoe UI' , Verdana, Helvetica, Sans-Serif;
+    font-size: 10pt;
+    height: 100%;
+    background-color: white;
+    color: #424242;
+}
+
+p
+{
+    padding: 0px 0px 10pt 0px;
+}
+
+a
+{
+    text-decoration: none;
+}
+
+a, a:visited, a:hover
+{
+    color: #00a3ef;
+}
+
+a:hover, a:visited:hover
+{
+    color: #00a3ef;
+    text-decoration: underline;
+}
+
+.bold
+{
+    font-family: 'Segoe UI Semibold';
+}
+
+body
+{
+    position: relative;
+    margin: 0px auto 0px auto;
+    min-width: 960px;
+    max-width: 1080px;
+    padding: 0px 40px 0px 40px;
+}
+
+#DemoScreenreaderText
+{
+    position: absolute;
+    left: -10000px;
+}
+
+#DemoTitle
+{
+    padding: 40px 0px 0px 0px;
+    font-size: 24pt;
+    font-weight: normal;
+    color: #00a3ef;
+}
+
+#DemoIntroduction
+{
+    margin: 40px 0px 0px 0px;
+}
+
+#DemoContent
+{
+    margin: 30px 0px 0px 0px;
+}
+
+#DemoDetails
+{
+    margin: 30px 0px 0px 0px;
+}
+
+#TestGraph {
+  display: inline-block;
+  position: relative;
+  width: 1000px;
+  height: 200px;
+  margin-top: 80px;
+  margin-bottom: 40px;
+}
+
+.bar {
+  position: absolute;
+  bottom: 0px;
+  width: 5px;
+  margin: 0px;
+  padding: 0px;
+  z-index: 2;
+  border-bottom: 0px;
+  background: green;
+  border-radius: 3px 3px 3px 3px;
+}
+
+.button {
+  border: 1px dashed silver;
+  padding: 2px;
+  margin: 2px;
+  display: inline;
+}
+
+.button:hover {
+  text-decoration:underline;
+  cursor: pointer;
+  background-color: silver;
+}
+
+div.result {
+  font-size: 48px;
+  color: yellow;
+}
+
+#TestWrapper
+{
+    text-align: center;
+}
+
+#TestContainer
+{
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.TestControlSet
+{
+    float: left;
+    width: 260px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.TestTitle
+{
+    font-weight: bold;
+}
+
+.TestResults
+{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.TestButton
+{
+    width: 140px;
+    padding: 2px;
+    margin-top: 6px;
+}

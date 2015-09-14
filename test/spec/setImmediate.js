@@ -1,45 +1,44 @@
-/* global describe, it, expect, setImmediate, clearImmediate, sinon */
-/* jshint strict: false */
+var lib = require('../../dist/setImmediate');
 
 describe('setImmediate', function() {
 
     it('простой вызов', function(done) {
-        setImmediate(function() {
+        lib.setImmediate(function() {
             done();
         });
     });
 
     it('передача аргументов', function(done) {
-        setImmediate(function(a, b) {
-            expect(a).to.be(1);
-            expect(b).to.be('a');
+        lib.setImmediate(function(a, b) {
+            expect(a).to.equal(1);
+            expect(b).to.equal('a');
             done();
         }, 1, 'a');
     });
 
     it('простой вызов', function() {
-        var timerId = setImmediate(function() {});
+        var timerId = lib.setImmediate(function() {});
         expect(timerId).to.be.a('number');
         expect(timerId).to.be.above(0);
     });
 
     it('проверка вызова с задержкой', function(done) {
         var stub = sinon.stub();
-        setImmediate(stub);
+        lib.setImmediate(stub);
 
         setTimeout(function() {
-            expect(stub.called).to.be(true);
+            expect(stub.called).to.equal(true);
             done();
         }, 100);
     });
 
     it('отмена вызова', function(done) {
         var stub = sinon.stub();
-        var timerId = setImmediate(stub);
-        clearImmediate(timerId);
+        var timerId = lib.setImmediate(stub);
+        lib.clearImmediate(timerId);
 
         setTimeout(function() {
-            expect(stub.called).to.be(false);
+            expect(stub.called).to.equal(false);
             done();
         }, 100);
     });
@@ -53,13 +52,13 @@ describe('setImmediate', function() {
         }
 
         called.forEach(function(n) {
-            setImmediate(function() {
+            lib.setImmediate(function() {
                 realCalled.push(n);
             });
         });
 
         setTimeout(function() {
-            expect(called.toString()).to.be(realCalled.toString());
+            expect(called.toString()).to.equal(realCalled.toString());
             done();
         }, 0);
     });

@@ -8,7 +8,8 @@
         "module": false,
         "expect": false,
         "it": false,
-        "describe": false
+        "describe": false,
+        "exports": false
     },
 
     "bitwise": true,
@@ -26,5 +27,6 @@
     "trailing": true,
     "undef": true,
     "unused": true,
-    "white": false
+    "white": false,
+    "node": true
 }

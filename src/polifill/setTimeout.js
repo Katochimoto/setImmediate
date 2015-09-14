@@ -1,9 +1,18 @@
-/* global global, Timer */
+'use strict';
 
-Timer.polifill.setTimeout = function() {
-    return function() {
+var context = require('../context');
+var Timer = require('../timer');
+
+exports.init = function() {
+    var polifill = function() {
         var handleId = Timer.create(arguments);
-        global.setTimeout( Timer.wrap( Timer.run, handleId ), 0 );
+        context.setTimeout( Timer.wrap( Timer.run, handleId ), 0 );
         return handleId;
     };
+    polifill.usePolifill = 'setTimeout';
+    return polifill;
+};
+
+exports.canUse = function() {
+    return true;
 };

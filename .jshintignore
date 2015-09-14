@@ -1,4 +1,5 @@
 node_modules
 test
-setImmediate.js
-setImmediate.min.js
+dist
+samples
+webpack.config.js

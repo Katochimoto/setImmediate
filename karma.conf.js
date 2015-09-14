@@ -10,12 +10,11 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['mocha', 'sinon-expect'],
+        frameworks: ['mocha', 'sinon-chai'],
 
 
         // list of files / patterns to load in the browser
         files: [
-            'src/setImmediate.js',
             'test/spec/**/*.js'
         ],
 
@@ -29,7 +28,7 @@ module.exports = function(config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            '**/*.js': [ 'borschik' ]
+            'test/spec/**/*.js': [ 'webpack' ]
         },
 
 
@@ -58,7 +57,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: [ 'PhantomJS', 'ChromeCanary' ],
+        browsers: [ 'PhantomJS' ],
 
 
         // Continuous Integration mode
