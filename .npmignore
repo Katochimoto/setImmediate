@@ -13,3 +13,5 @@ build
 test
 Makefile
 bower.json
+webpack.config.js
+dist

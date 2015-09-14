@@ -2,8 +2,8 @@
     "name": "setimmediate2",
     "version": "2.0.0",
     "main": [
-        "setImmediate.js",
-        "setImmediate.min.js"
+        "dist/setImmediate.js",
+        "dist/setImmediate.min.js"
     ],
     "ignore": [
         "**/.*",
@@ -13,7 +13,9 @@
         "Makefile",
         "src",
         "package.json",
-        "karma.conf.js"
+        "karma.conf.js",
+        "webpack.config.js",
+        "dist"
     ],
     "homepage": "https://github.com/Katochimoto/setImmediate",
     "authors": [

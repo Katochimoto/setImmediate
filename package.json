@@ -5,7 +5,7 @@
   "keywords": [
     "setImmediate"
   ],
-  "author": "YuzuJS",
+  "author": "Rikishi",
   "contributors": [
     {
       "name": "Rikishi",
@@ -35,7 +35,7 @@
     "mocha": "2.3.2",
     "webpack": "^1.12.1"
   },
-  "main": "setImmediate.js",
+  "main": "dist/setImmediate.js",
   "scripts": {
     "test": "make test"
   },
