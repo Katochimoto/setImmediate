@@ -1,5 +1,4 @@
 # setImmediate.js
-**Fork from [setimmediate](https://github.com/YuzuJS/setImmediate)**
 
 [![Build Status][build]][build-link] [![NPM version][version]][version-link] [![Dependency Status][dependency]][dependency-link] [![devDependency Status][dev-dependency]][dev-dependency-link] [![Code Climate][climate]][climate-link]
 
