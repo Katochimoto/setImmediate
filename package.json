@@ -24,16 +24,21 @@
     "url": "git@github.com:Katochimoto/setImmediate.git"
   },
   "devDependencies": {
+    "chai": "3.5.0",
     "jscs": "2.1.1",
     "jshint": "2.8.0",
-    "karma": "~0.13.x",
+    "karma": "0.13.22",
     "karma-chai": "0.1.0",
-    "karma-mocha": "0.2.0",
+    "karma-mocha": "0.2.2",
     "karma-phantomjs-launcher": "0.2.1",
-    "karma-sinon-chai": "^1.0.0",
-    "karma-webpack": "^1.7.0",
-    "mocha": "2.3.2",
-    "webpack": "^1.12.1"
+    "karma-sinon-chai": "1.2.0",
+    "karma-webpack": "1.7.0",
+    "lolex": "1.4.0",
+    "mocha": "2.4.5",
+    "phantomjs": "^2.1.3",
+    "sinon": "1.17.3",
+    "sinon-chai": "2.8.0",
+    "webpack": "1.12.14"
   },
   "main": "dist/setImmediate.js",
   "scripts": {

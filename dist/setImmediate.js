@@ -54,8 +54,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var context = __webpack_require__(1);
 	var useNative = __webpack_require__(2);
 	var Timer = __webpack_require__(3);
@@ -106,8 +104,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports) {
 
-	/*jshint -W067*/
-	'use strict';
+	/* jshint -W067 */
 
 	module.exports = (function() {
 	    return this || (1, eval)('this');
@@ -130,10 +127,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var context = __webpack_require__(1);
-
 	var nextId = 1;
 	var tasks = {};
 	var lock = false;
@@ -186,8 +180,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);
 
@@ -209,8 +201,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);
@@ -235,8 +225,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 6 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);
@@ -291,8 +279,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);
 
@@ -321,8 +307,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);
@@ -357,8 +341,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	var context = __webpack_require__(1);
 	var Timer = __webpack_require__(3);

@@ -1,5 +1,3 @@
-'use strict';
-
 var context = require('./context');
 var useNative = require('./useNative');
 var Timer = require('./timer');

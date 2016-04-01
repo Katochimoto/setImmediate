@@ -1,7 +1,4 @@
-'use strict';
-
 var context = require('./context');
-
 var nextId = 1;
 var tasks = {};
 var lock = false;

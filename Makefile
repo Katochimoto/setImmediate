@@ -17,7 +17,7 @@ test: node_modules
 clean:
 	rm -rf dist
 
-dist: node_modules $(src_js)
+dist: webpack.config.js node_modules $(src_js)
 	$(NPM_BIN)/webpack src/index.js dist/setImmediate.js
 	$(NPM_BIN)/webpack src/index.js dist/setImmediate.min.js --optimize-minimize
 	touch dist
