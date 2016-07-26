@@ -34,7 +34,7 @@ exports.canUse = function() {
     if (context.importScripts || !context.postMessage) {
         return false;
     }
-    if (ontext.navigator && /Chrome/.test(context.navigator.userAgent)) {
+    if (context.navigator && /Chrome/.test(context.navigator.userAgent)) {
         //skip this method due to heavy minor GC on heavy use.
         return false;
     }
