@@ -1,6 +1,6 @@
 {
     "name": "setimmediate2",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "main": [
         "dist/setImmediate.js",
         "dist/setImmediate.min.js"
@@ -19,7 +19,8 @@
     ],
     "homepage": "https://github.com/Katochimoto/setImmediate",
     "authors": [
-        "rikishi <bufpost@yandex.ru>"
+        "rikishi <bufpost@yandex.ru>",
+        "Adrian <adrian.li@derivco.com.hk>"
     ],
     "description": "A shim for the setImmediate efficient script yielding API",
     "moduleType": [
