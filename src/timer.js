@@ -5,10 +5,33 @@ var lock = false;
 
 function wrap(handler) {
     var args = Array.prototype.slice.call(arguments, 1);
-
-    return function() {
-        handler.apply(undefined, args);
-    };
+    var fn;
+    switch (args.length){
+        case 0:
+            fn = function() {
+                handler.call(undefined);
+            };
+            break;
+        case 1:
+            fn = function() {
+                handler.call(undefined, args[0]);
+            };
+            break;
+        case 2:
+            fn = function() {
+                handler.call(undefined, args[0], args[1]);
+            };
+            break;
+        case 3:
+            fn = function() {
+                handler.call(undefined, args[0], args[1], args[2]);
+            };
+            break;
+        default: fn = function() {
+            handler.apply(undefined, args);
+        };
+    }
+    return fn;
 }
 
 function create(args) {
