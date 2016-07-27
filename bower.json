@@ -1,9 +1,7 @@
 {
     "name": "setimmediate2",
     "version": "2.0.2",
-    "main": [
-        "dist/setImmediate.js",
-    ],
+    "main": "dist/setImmediate.js",
     "ignore": [
         "**/.*",
         "node_modules",
