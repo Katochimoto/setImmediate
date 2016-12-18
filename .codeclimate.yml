@@ -1,8 +1,30 @@
-languages:
-  JavaScript: true
+---
+engines:
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - ruby
+      - javascript
+      - python
+      - php
+  eslint:
+    enabled: true
+  fixme:
+    enabled: true
+ratings:
+  paths:
+  - "**.inc"
+  - "**.js"
+  - "**.jsx"
+  - "**.module"
+  - "**.php"
+  - "**.py"
+  - "**.rb"
 exclude_paths:
-- "dist/*"
-- "test/*"
-- "samples/*"
-- "karma.conf.js"
-- "webpack.config.js"
+- dist/*
+- test/*
+- samples/*
+- docs/*
+- webpack.config.js
+- karma.conf.js
