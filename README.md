@@ -88,6 +88,15 @@ require("setimmediate2");
 
 somewhere early in your app; it attaches to the global.
 
+## Build (for Linux only)
+`make` are required  
+```
+  make
+  make test
+  make clean
+
+```
+
 ## Demo
 
 * [Quick sort demo][cross-browser-demo]
