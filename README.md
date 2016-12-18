@@ -7,18 +7,18 @@
 [![NPM](https://nodei.co/npm/setimmediate2.png?downloads=true&stars=true)](https://nodei.co/npm/setimmediate2/)
 [![NPM](https://nodei.co/npm-dl/setimmediate2.png)](https://nodei.co/npm/setimmediate2/)
 
-
-[build]: https://travis-ci.org/Katochimoto/setImmediate.png?branch=master
+[build]: https://travis-ci.org/Katochimoto/setImmediate.svg?branch=master
 [build-link]: https://travis-ci.org/Katochimoto/setImmediate
-[version]: https://badge.fury.io/js/setimmediate2.png
+[version]: https://badge.fury.io/js/setimmediate2.svg
 [version-link]: http://badge.fury.io/js/setimmediate2
-[dependency]: https://david-dm.org/Katochimoto/setImmediate.png
+[dependency]: https://david-dm.org/Katochimoto/setImmediate.svg
 [dependency-link]: https://david-dm.org/Katochimoto/setImmediate
-[dev-dependency]: https://david-dm.org/Katochimoto/setImmediate/dev-status.png
+[dev-dependency]: https://david-dm.org/Katochimoto/setImmediate/dev-status.svg
 [dev-dependency-link]: https://david-dm.org/Katochimoto/setImmediate#info=devDependencies
-[climate]: https://codeclimate.com/github/Katochimoto/setImmediate.png
+[climate]: https://codeclimate.com/github/Katochimoto/setImmediate/badges/gpa.svg
 [climate-link]: https://codeclimate.com/github/Katochimoto/setImmediate
-
+[coverage]: https://codeclimate.com/github/Katochimoto/setImmediate/badges/coverage.svg
+[coverage-link]: https://codeclimate.com/github/Katochimoto/setImmediate
 
 ## Introduction
 
