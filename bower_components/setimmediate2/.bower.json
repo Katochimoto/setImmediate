@@ -1,0 +1,39 @@
+{
+  "name": "setimmediate2",
+  "version": "3.0.0",
+  "main": "dist/setImmediate.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "src",
+    "package.json",
+    "karma.conf.js",
+    "rollup.config.js",
+    "samples"
+  ],
+  "homepage": "https://github.com/Katochimoto/setImmediate",
+  "authors": [
+    "rikishi <bufpost@yandex.ru>",
+    "Adrian <adrian.li@derivco.com.hk>"
+  ],
+  "description": "A shim for the setImmediate efficient script yielding API",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "setImmediate"
+  ],
+  "license": "MIT",
+  "_release": "3.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.0.0",
+    "commit": "873e8610b793056466da2505626ba1b90e4b04a5"
+  },
+  "_source": "https://github.com/Katochimoto/setImmediate.git",
+  "_target": "^3.0.0",
+  "_originalSource": "setimmediate2",
+  "_direct": true
+}
