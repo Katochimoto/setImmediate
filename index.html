@@ -63,7 +63,7 @@
             This demo visually sorts 250 items using the Quick Sort algorithm once per callback, making one swap during each browser callback. The more browser callbacks per second the faster the items will be sorted. While this is not how you would efficently implement a sorting algoritm it's a fun way to visualize the impact of callbacks per second. Try sorting using the HTML4 resolution of 15.6ms per callback, the HTML5 resolution of 4ms per callback, and the new setImmediate approach of immediate callbacks. Special thanks to <a href="http://www.eak.com/resume.html">Erik Kay</a> and <a href="http://www.belshe.com/">Mike Belshe</a> from the Google Chrome engineering team for the quick sort test used to demonstrate the benefits of the new setImmediate API. The original demo was created by <a href="http://www.jasonweber.com/">Jason Weber</a> from Microsoft Corporation as part of the <a href="https://ie.microsoft.com/testdrive/Performance/setImmediateSorting/Default.html">IE Test Drive demos</a>. The demo was later adapted by <a href="http://blog.jphpsf.com">JP Castro</a> to demonstrate the <a href="https://github.com/NobleJS/setImmediate">setImmediate.js cross browser shim</a>. Demo source code is available on <a href="https://github.com/jphpsf/setImmediate-shim-demo">GitHub</a>.
         </p>
     </div>
-    <script type="text/javascript" src="bower_components/setimmediate2/dist/setImmediate.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/setimmediate2"></script>
     <script type="text/javascript" src="demo.js"></script>
 
 <div style="clear: both; "></div></body>
