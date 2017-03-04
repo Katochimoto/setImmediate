@@ -1,51 +1,54 @@
-var context = require('../context');
-var Timer = require('../timer');
+import context from '../context';
+import * as Timer from '../timer';
 
-exports.init = function() {
-    var messagePrefix = 'setImmediate$' + Math.random() + '$';
+export function init() {
+  const messagePrefix = 'setImmediate$' + Math.random() + '$';
 
-    var onGlobalMessage = function(event) {
-        if (event.source === context &&
-            typeof(event.data) === 'string' &&
-            event.data.indexOf(messagePrefix) === 0) {
+  const onGlobalMessage = function (event) {
+    if (event.source === context &&
+      typeof(event.data) === 'string' &&
+      event.data.indexOf(messagePrefix) === 0) {
 
-            Timer.run(Number(event.data.slice(messagePrefix.length)));
-        }
-    };
-
-    if (context.addEventListener) {
-        context.addEventListener('message', onGlobalMessage, false);
-
-    } else {
-        context.attachEvent('onmessage', onGlobalMessage);
+      Timer.run(Number(event.data.slice(messagePrefix.length)));
     }
+  };
 
-    var polifill = function() {
-        var handleId = Timer.create(arguments);
-        context.postMessage(messagePrefix + handleId, '*');
-        return handleId;
-    };
-    polifill.usePolifill = 'postMessage';
-    return polifill;
+  if (context.addEventListener) {
+    context.addEventListener('message', onGlobalMessage, false);
+
+  } else {
+    context.attachEvent('onmessage', onGlobalMessage);
+  }
+
+  const polifill = function () {
+    const handleId = Timer.create(arguments);
+    context.postMessage(messagePrefix + handleId, '*');
+    return handleId;
+  };
+
+  polifill.usePolifill = 'postMessage';
+
+  return polifill;
 };
 
 // For non-IE10 modern browsers
-exports.canUse = function() {
-    if (context.importScripts || !context.postMessage) {
-        return false;
-    }
-    if (context.navigator && /Chrome/.test(context.navigator.userAgent)) {
-        //skip this method due to heavy minor GC on heavy use.
-        return false;
-    }
+export function canUse() {
+  if (context.importScripts || !context.postMessage) {
+    return false;
+  }
 
-    var asynch = true;
-    var oldOnMessage = context.onmessage;
-    context.onmessage = function() {
-        asynch = false;
-    };
+  if (context.navigator && /Chrome/.test(context.navigator.userAgent)) {
+    //skip this method due to heavy minor GC on heavy use.
+    return false;
+  }
 
-    context.postMessage('', '*');
-    context.onmessage = oldOnMessage;
-    return asynch;
+  let asynch = true;
+  const oldOnMessage = context.onmessage;
+  context.onmessage = function () {
+    asynch = false;
+  };
+
+  context.postMessage('', '*');
+  context.onmessage = oldOnMessage;
+  return asynch;
 };

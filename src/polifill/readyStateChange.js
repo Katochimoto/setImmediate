@@ -1,28 +1,30 @@
-var context = require('../context');
-var Timer = require('../timer');
+import context from '../context';
+import * as Timer from '../timer';
 
-exports.init = function() {
-    var html = context.document.documentElement;
-    var polifill = function() {
-        var handleId = Timer.create(arguments);
-        var script = context.document.createElement('script');
+export function init() {
+  const html = context.document.documentElement;
 
-        script.onreadystatechange = function() {
-            Timer.run(handleId);
-            script.onreadystatechange = null;
-            html.removeChild(script);
-            script = null;
-        };
+  const polifill = function () {
+    const handleId = Timer.create(arguments);
+    let script = context.document.createElement('script');
 
-        html.appendChild(script);
-        return handleId;
+    script.onreadystatechange = function () {
+      Timer.run(handleId);
+      script.onreadystatechange = null;
+      html.removeChild(script);
+      script = null;
     };
 
-    polifill.usePolifill = 'readyStateChange';
-    return polifill;
+    html.appendChild(script);
+    return handleId;
+  };
+
+  polifill.usePolifill = 'readyStateChange';
+
+  return polifill;
 };
 
 // For IE 6–8
-exports.canUse = function() {
-    return (context.document && ('onreadystatechange' in context.document.createElement('script')));
+export function canUse() {
+  return (context.document && ('onreadystatechange' in context.document.createElement('script')));
 };

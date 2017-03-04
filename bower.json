@@ -1,17 +1,16 @@
 {
     "name": "setimmediate2",
-    "version": "2.0.2",
+    "version": "3.0.0",
     "main": "dist/setImmediate.js",
     "ignore": [
         "**/.*",
         "node_modules",
         "bower_components",
         "test",
-        "Makefile",
         "src",
         "package.json",
         "karma.conf.js",
-        "webpack.config.js",
+        "rollup.config.js",
         "samples"
     ],
     "homepage": "https://github.com/Katochimoto/setImmediate",

@@ -1,70 +1,54 @@
-var context = require('./context');
-var nextId = 1;
-var tasks = {};
-var lock = false;
+import context from './context';
 
-function wrap(handler) {
-    var args = Array.prototype.slice.call(arguments, 1);
-    var fn;
-    switch (args.length){
-        case 0:
-            fn = function() {
-                handler.call(undefined);
-            };
-            break;
-        case 1:
-            fn = function() {
-                handler.call(undefined, args[0]);
-            };
-            break;
-        case 2:
-            fn = function() {
-                handler.call(undefined, args[0], args[1]);
-            };
-            break;
-        case 3:
-            fn = function() {
-                handler.call(undefined, args[0], args[1], args[2]);
-            };
-            break;
-        default: fn = function() {
-            handler.apply(undefined, args);
-        };
-    }
-    return fn;
-}
+let nextId = 1;
+let lock = false;
+const TASKS = {};
 
-function create(args) {
-    tasks[ nextId ] = wrap.apply(undefined, args);
-    return nextId++;
-}
+export function wrap (handler) {
+  const args = Array.prototype.slice.call(arguments, 1);
+  const len = args.length;
 
-function clear(handleId) {
-    delete tasks[ handleId ];
-}
-
-function run(handleId) {
-    if (lock) {
-        context.setTimeout( wrap( run, handleId ), 0 );
-
+  return do {
+    if (!len) {
+      () => handler.call(undefined);
+    } else if (len === 1) {
+      () => handler.call(undefined, args[0]);
+    } else if (len === 2) {
+      () => handler.call(undefined, args[0], args[1]);
+    } else if (len === 3) {
+      () => handler.call(undefined, args[0], args[1], args[2]);
     } else {
-        var task = tasks[ handleId ];
-
-        if (task) {
-            lock = true;
-
-            try {
-                task();
-
-            } finally {
-                clear( handleId );
-                lock = false;
-            }
-        }
+      () => handler.apply(undefined, args);
     }
+  };
 }
 
-exports.run = run;
-exports.wrap = wrap;
-exports.create = create;
-exports.clear = clear;
+export function create (args) {
+  TASKS[ nextId ] = wrap.apply(undefined, args);
+  return nextId++;
+}
+
+export function clear (handleId) {
+  delete TASKS[ handleId ];
+}
+
+export function run (handleId) {
+  if (lock) {
+    context.setTimeout( wrap( run, handleId ), 0 );
+
+  } else {
+    const task = TASKS[ handleId ];
+
+    if (task) {
+      lock = true;
+
+      try {
+        task();
+
+      } finally {
+        clear( handleId );
+        lock = false;
+      }
+    }
+  }
+}

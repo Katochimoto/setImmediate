@@ -1,44 +1,57 @@
-var context = require('./context');
-var useNative = require('./useNative');
-var Timer = require('./timer');
-var setTimeoutPolifill = require('./polifill/setTimeout');
-var polifills = [
-    require('./polifill/nextTick'),
-    require('./polifill/postMessage'),
-    require('./polifill/messageChannel'),
-    require('./polifill/readyStateChange'),
-    require('./polifill/image')
+import context from './context';
+import useNative from './useNative';
+import * as Timer from './timer';
+import * as setTimeoutPolifill from './polifill/setTimeout';
+import * as nextTickPolifill from './polifill/nextTick';
+import * as postMessagePolifill from './polifill/postMessage';
+import * as messageChannelPolifill from './polifill/messageChannel';
+import * as readyStateChangePolifill from './polifill/readyStateChange';
+
+const POLIFILLS = [
+  nextTickPolifill,
+  postMessagePolifill,
+  messageChannelPolifill,
+  readyStateChangePolifill
 ];
-var setImmediate;
-var clearImmediate;
 
-if (useNative()) {
-    setImmediate = context.setImmediate ||
-        context.msSetImmediate ||
-        usePolifill(polifills, setTimeoutPolifill);
+const setImmediate = do {
+  if (useNative) {
+    context.setImmediate || context.msSetImmediate || usePolifill(POLIFILLS, setTimeoutPolifill);
+  } else {
+    setTimeoutPolifill.init();
+  }
+};
 
-    clearImmediate = context.clearImmediate ||
-        context.msClearImmediate ||
-        Timer.clear;
+const clearImmediate = do {
+  if (useNative) {
+    context.clearImmediate || context.msClearImmediate || Timer.clear;
+  } else {
+    Timer.clear;
+  }
+};
 
-} else {
-    setImmediate = setTimeoutPolifill.init();
-    clearImmediate = Timer.clear;
+function polifill () {
+  if (context.setImmediate !== setImmediate) {
+    context.setImmediate = setImmediate;
+    context.msSetImmediate = setImmediate;
+    context.clearImmediate = clearImmediate;
+    context.msClearImmediate = clearImmediate;
+  }
 }
 
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
-
-exports.msSetImmediate = setImmediate;
-exports.msClearImmediate = clearImmediate;
-
-function usePolifill(polifills, def) {
-    for (var i = 0; i < polifills.length; i++) {
-        var polifill = polifills[ i ];
-        if (polifill.canUse()) {
-            return polifill.init();
-        }
+function usePolifill (list, def) {
+  for (let i = 0; i < list.length; i++) {
+    const polifill = list[ i ];
+    if (polifill.canUse()) {
+      return polifill.init();
     }
+  }
 
-    return def.init();
+  return def.init();
 }
+
+export default {
+  setImmediate,
+  clearImmediate,
+  polifill
+};

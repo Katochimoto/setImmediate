@@ -1,7 +1,7 @@
 {
   "name": "setimmediate2",
   "description": "A shim for the setImmediate efficient script yielding API (fork from setimmediate)",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "keywords": [
     "setImmediate"
   ],
@@ -28,25 +28,37 @@
     "url": "git@github.com:Katochimoto/setImmediate.git"
   },
   "devDependencies": {
+    "babel-plugin-module-resolver": "^2.4.0",
+    "babel-preset-es2015-rollup": "^3.0.0",
+    "babel-preset-stage-0": "^6.16.0",
     "chai": "3.5.0",
     "jscs": "3.0.7",
     "jshint": "2.9.4",
-    "karma": "1.3.0",
+    "karma": "1.5.0",
     "karma-chai": "0.1.0",
     "karma-mocha": "1.3.0",
     "karma-phantomjs-launcher": "1.0.2",
+    "karma-rollup-preprocessor": "^3.0.3",
     "karma-sinon-chai": "1.2.4",
-    "karma-webpack": "1.8.0",
-    "lolex": "1.5.2",
+    "lolex": "1.6.0",
     "mocha": "3.2.0",
-    "phantomjs": "2.1.3",
-    "sinon": "1.17.6",
-    "sinon-chai": "2.8.0",
-    "webpack": "1.14.0"
+    "phantomjs": "2.1.7",
+    "rollup": "^0.41.4",
+    "rollup-plugin-babel": "^2.7.1",
+    "rollup-plugin-commonjs": "^7.0.0",
+    "rollup-plugin-filesize": "^1.0.1",
+    "rollup-plugin-minify": "^1.0.3",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-watch": "^3.2.2",
+    "sinon": "1.17.7",
+    "sinon-chai": "2.8.0"
   },
   "main": "dist/setImmediate.js",
   "scripts": {
-    "test": "make test"
+    "clean": "rm -rf dist",
+    "dev": "rollup --watch --config rollup.config.js",
+    "build": "rollup --config rollup.config.js",
+    "test": "jshint .| jscs .| karma start --single-run --browsers PhantomJS"
   },
   "engines": {
     "node": ">=0.6.0"

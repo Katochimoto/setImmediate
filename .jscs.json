@@ -51,6 +51,6 @@
         "dist",
         "karma.conf.js",
         "samples",
-        "webpack.config.js"
+        "rollup.config.js"
     ]
 }

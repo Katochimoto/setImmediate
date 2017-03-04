@@ -1,4 +1,4 @@
-var lib = require('../../dist/setImmediate');
+import lib from '../../src/index';
 
 describe('setImmediate', function() {
 

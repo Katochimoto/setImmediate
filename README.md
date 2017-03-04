@@ -74,6 +74,14 @@ bower install setimmediate2
 
 In the browser, include it with a `<script>` tag; pretty simple.
 
+```html
+<script>
+immediate.polifill();
+//immediate.setImmediate();
+//immediate.clearImmediate();
+</script>
+```
+
 In Node.js, do
 
 ```
@@ -83,19 +91,11 @@ npm install setimmediate2
 then
 
 ```js
-require("setimmediate2");
+var immediate = require('setimmediate2');
+immediate.setImmediate(() => { /*...*/ });
 ```
 
 somewhere early in your app; it attaches to the global.
-
-## Build (for Linux only)
-`make` are required  
-```
-  make
-  make test
-  make clean
-
-```
 
 ## Demo
 

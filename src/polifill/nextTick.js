@@ -1,18 +1,20 @@
-var context = require('../context');
-var Timer = require('../timer');
+import context from '../context';
+import * as Timer from '../timer';
 
-exports.init = function() {
-    var polifill = function() {
-        var handleId = Timer.create(arguments);
-        context.process.nextTick( Timer.wrap( Timer.run, handleId ) );
-        return handleId;
-    };
-    polifill.usePolifill = 'nextTick';
-    return polifill;
+export function init() {
+  const polifill = function () {
+    const handleId = Timer.create(arguments);
+    context.process.nextTick( Timer.wrap( Timer.run, handleId ) );
+    return handleId;
+  };
+
+  polifill.usePolifill = 'nextTick';
+
+  return polifill;
 };
 
 // Don't get fooled by e.g. browserify environments.
 // For Node.js before 0.9
-exports.canUse = function() {
-    return (Object.prototype.toString.call(context.process) === '[object process]');
+export function canUse() {
+  return (Object.prototype.toString.call(context.process) === '[object process]');
 };

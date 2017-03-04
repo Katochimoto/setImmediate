@@ -26,5 +26,5 @@ exclude_paths:
 - test/*
 - samples/*
 - docs/*
-- webpack.config.js
+- rollup.config.js
 - karma.conf.js
